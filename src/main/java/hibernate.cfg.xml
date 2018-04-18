@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">net.sourceforge.jtds.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:jtds:sqlserver://localhost:1433/HIBERNATE;</property>
+        <property name="hibernate.connection.username">sa</property>
+        <property name="hibernate.connection.password">Temporal22</property>
+        <property name="hibernate.connection.pool_size">2</property>
+      
+       
+       <property name="hibernate.current_session_context_class">thread</property>
+       <property name="hibernate.show_sql">true</property> <!-- Para que en la consola se muestre las consultas -->
+       <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property> <!-- osea la base de datos que vamos a utilizar -->
+
+       <property name="hibernate.hbm2ddl.auto">none</property><!-- Cuando lea las clases hace eso, create(crea las tablas y todo y borra lo anterior)update(actualiza los registror
+       y si lo quitamos solo se unen -->
+       
+       <!-- https://docs.jboss.org/hibernate/orm/3.3/reference/es-ES/html/session-configuration.html -->
+       <!-- INDICAMOS LAS CLASES QUE QUEREMOS QUE MAPEAR -->
+       <mapping class="es.aytos.hibernate.hibernate_dual.modelo.Persona"/>
+    </session-factory>
+</hibernate-configuration>
