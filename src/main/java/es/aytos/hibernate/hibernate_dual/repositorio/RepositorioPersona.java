@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import es.aytos.hibernate.hibernate_dual.modelo.Cliente;
 import es.aytos.hibernate.hibernate_dual.modelo.EstadoCivil;
 import es.aytos.hibernate.hibernate_dual.modelo.Persona;
 import es.aytos.hibernate.hibernate_dual.util.HibernateUtil;
@@ -33,18 +34,20 @@ public class RepositorioPersona {
 		}
 	}
 	
-	public static void modifiarPersona(Integer idPersona, String nombre) {
+	
+	public static void modificarPersona(Integer idPersona, String nombre) {
 		final Session sesion = HibernateUtil.getMiFactoria().getCurrentSession();
 
 		try {
 
 			sesion.beginTransaction();
 
-			final Persona personaBBDD = (Persona) sesion.createQuery("from Persona where PER_ID = :idPersona")
+			final Persona personaBBDD = (Persona) sesion.createQuery("from Usuario USU2 where USU2.idUsuario = :idPersona")
 					.setParameter("idPersona", idPersona).uniqueResult();// Almacena esta persona
 			
-			/*sesion.createQuery("UPDATE Persona set per_nom = :nombre where per_id = :identificador")
-			.setParameter("nombre", nombre).setParameter("identificador", idPersona).uniqueResult();*/
+			//sesion.createQuery("UPDATE Persona set per_nom = :nombre where USU_ID = :identificador")
+			//.setParameter("nombre", nombre)
+			//.setParameter("identificador", idPersona).executeUpdate();
 			
 			personaBBDD.setNombre(nombre);
 
@@ -60,27 +63,6 @@ public class RepositorioPersona {
 		}
 	}
 	
-	public static void eliminarPersona(Integer idPersona) {
-		final Session sesion = HibernateUtil.getMiFactoria().getCurrentSession();
-
-		try {
-
-			sesion.beginTransaction();
-			
-			sesion.createQuery("DELETE Persona where per_id = :identificador")
-			.setParameter("identificador", idPersona).executeUpdate();
-
-			sesion.getTransaction().commit(); // Lo guarda en la base de datos
-
-
-		} catch (Exception e) {
-			System.out.println("Se ha producido un error insertando la persona: " + e);
-			e.printStackTrace();
-			throw new RuntimeException();
-		}finally {
-			sesion.close();
-		}
-	}
 	public static Persona consultarPersona(Integer idPersona) {
 		final Session sesion = HibernateUtil.getMiFactoria().getCurrentSession();
 
@@ -88,7 +70,8 @@ public class RepositorioPersona {
 
 			sesion.beginTransaction();
 			
-			return (Persona)sesion.createQuery("from Persona where per_id = :idPersona").setParameter("idPersona", idPersona).uniqueResult();
+			return (Persona)sesion.createQuery("from Usuario USU2 where USU2.idUsuario = :idPersona")
+					.setParameter("idPersona", idPersona).uniqueResult();
 
 
 
